@@ -111,7 +111,7 @@ public final class DexPathList {
         this.definingContext = definingContext;
         this.nativeLibraryDirectories = splitPaths(librarySearchPath, false);
         this.systemNativeLibraryDirectories =
-            splitPaths(System.getProperty("java.library.path"), true);
+                splitPaths(System.getProperty("java.library.path"), true);
         this.nativeLibraryPathElements = makePathElements(getAllNativeLibraryDirectories());
     }
 
@@ -130,12 +130,12 @@ public final class DexPathList {
      */
     @UnsupportedAppUsage
     public DexPathList(ClassLoader definingContext, String dexPath,
-        String librarySearchPath, File optimizedDirectory) {
+            String librarySearchPath, File optimizedDirectory) {
         this(definingContext, dexPath, librarySearchPath, optimizedDirectory, false);
     }
 
     DexPathList(ClassLoader definingContext, String dexPath,
-        String librarySearchPath, File optimizedDirectory, boolean isTrusted) {
+            String librarySearchPath, File optimizedDirectory, boolean isTrusted) {
         if (definingContext == null) {
             throw new NullPointerException("definingContext == null");
         }
@@ -147,15 +147,15 @@ public final class DexPathList {
         if (optimizedDirectory != null) {
             if (!optimizedDirectory.exists())  {
                 throw new IllegalArgumentException(
-                    "optimizedDirectory doesn't exist: "
-                        + optimizedDirectory);
+                        "optimizedDirectory doesn't exist: "
+                                + optimizedDirectory);
             }
 
             if (!(optimizedDirectory.canRead()
-                && optimizedDirectory.canWrite())) {
+                    && optimizedDirectory.canWrite())) {
                 throw new IllegalArgumentException(
-                    "optimizedDirectory not readable/writable: "
-                        + optimizedDirectory);
+                        "optimizedDirectory not readable/writable: "
+                                + optimizedDirectory);
             }
         }
 
@@ -164,7 +164,7 @@ public final class DexPathList {
         ArrayList<IOException> suppressedExceptions = new ArrayList<IOException>();
         // save dexPath for BaseDexClassLoader
         this.dexElements = makeDexElements(splitDexPath(dexPath), optimizedDirectory,
-            suppressedExceptions, definingContext, isTrusted);
+                suppressedExceptions, definingContext, isTrusted);
 
         // Native libraries may exist in both the system and
         // application library paths, and we use this search order:
@@ -178,12 +178,12 @@ public final class DexPathList {
         // This order was reversed prior to Gingerbread; see http://b/2933456.
         this.nativeLibraryDirectories = splitPaths(librarySearchPath, false);
         this.systemNativeLibraryDirectories =
-            splitPaths(System.getProperty("java.library.path"), true);
+                splitPaths(System.getProperty("java.library.path"), true);
         this.nativeLibraryPathElements = makePathElements(getAllNativeLibraryDirectories());
 
         if (suppressedExceptions.size() > 0) {
             this.dexElementsSuppressedExceptions =
-                suppressedExceptions.toArray(new IOException[suppressedExceptions.size()]);
+                    suppressedExceptions.toArray(new IOException[suppressedExceptions.size()]);
         } else {
             dexElementsSuppressedExceptions = null;
         }
@@ -191,8 +191,8 @@ public final class DexPathList {
 
     @Override public String toString() {
         return "DexPathList[" + Arrays.toString(dexElements) +
-            ",nativeLibraryDirectories=" +
-            Arrays.toString(getAllNativeLibraryDirectories().toArray()) + "]";
+                ",nativeLibraryDirectories=" +
+                Arrays.toString(getAllNativeLibraryDirectories().toArray()) + "]";
     }
 
     /**
@@ -218,7 +218,7 @@ public final class DexPathList {
     public void addDexPath(String dexPath, File optimizedDirectory, boolean isTrusted) {
         final List<IOException> suppressedExceptionList = new ArrayList<IOException>();
         final Element[] newElements = makeDexElements(splitDexPath(dexPath), optimizedDirectory,
-            suppressedExceptionList, definingContext, isTrusted);
+                suppressedExceptionList, definingContext, isTrusted);
 
         if (newElements != null && newElements.length > 0) {
             dexElements = concat(Element.class, dexElements, newElements);
@@ -226,10 +226,10 @@ public final class DexPathList {
 
         if (suppressedExceptionList.size() > 0) {
             final IOException[] newSuppExceptions = suppressedExceptionList.toArray(
-                new IOException[suppressedExceptionList.size()]);
+                    new IOException[suppressedExceptionList.size()]);
             dexElementsSuppressedExceptions = dexElementsSuppressedExceptions != null
-                ? concat(IOException.class, dexElementsSuppressedExceptions, newSuppExceptions)
-                : newSuppExceptions;
+                    ? concat(IOException.class, dexElementsSuppressedExceptions, newSuppExceptions)
+                    : newSuppExceptions;
         }
     }
 
@@ -271,7 +271,7 @@ public final class DexPathList {
 
         if (suppressedExceptions.size() > 0) {
             dexElementsSuppressedExceptions = suppressedExceptions.toArray(
-                new IOException[suppressedExceptions.size()]);
+                    new IOException[suppressedExceptions.size()]);
         }
     }
 
@@ -335,13 +335,13 @@ public final class DexPathList {
     @SuppressWarnings("unused")
     @UnsupportedAppUsage
     public static Element[] makeInMemoryDexElements(ByteBuffer[] dexFiles,
-        List<IOException> suppressedExceptions) {
+            List<IOException> suppressedExceptions) {
         Element[] elements = new Element[dexFiles.length];
         int elementPos = 0;
         for (ByteBuffer buf : dexFiles) {
             try {
                 DexFile dex = new DexFile(new ByteBuffer[] { buf }, /* classLoader */ null,
-                    /* dexElements */ null);
+                        /* dexElements */ null);
                 elements[elementPos++] = new Element(dex);
             } catch (IOException suppressed) {
                 System.logE("Unable to load dex file: " + buf, suppressed);
@@ -360,13 +360,13 @@ public final class DexPathList {
      */
     @UnsupportedAppUsage
     private static Element[] makeDexElements(List<File> files, File optimizedDirectory,
-        List<IOException> suppressedExceptions, ClassLoader loader) {
+            List<IOException> suppressedExceptions, ClassLoader loader) {
         return makeDexElements(files, optimizedDirectory, suppressedExceptions, loader, false);
     }
 
 
     private static Element[] makeDexElements(List<File> files, File optimizedDirectory,
-        List<IOException> suppressedExceptions, ClassLoader loader, boolean isTrusted) {
+            List<IOException> suppressedExceptions, ClassLoader loader, boolean isTrusted) {
         Element[] elements = new Element[files.size()];
         int elementsPos = 0;
         /*
@@ -432,8 +432,8 @@ public final class DexPathList {
      */
     @UnsupportedAppUsage
     private static DexFile loadDexFile(File file, File optimizedDirectory, ClassLoader loader,
-        Element[] elements)
-        throws IOException {
+            Element[] elements)
+            throws IOException {
         if (optimizedDirectory == null) {
             return new DexFile(file, loader, elements);
         } else {
@@ -447,7 +447,7 @@ public final class DexPathList {
      * output file path for an associated optimized dex file.
      */
     private static String optimizedPathFor(File path,
-        File optimizedDirectory) {
+            File optimizedDirectory) {
         /*
          * Get the filename component of the path, and replace the
          * suffix with ".dex" if that's not already the suffix.
@@ -484,7 +484,7 @@ public final class DexPathList {
     @UnsupportedAppUsage
     @SuppressWarnings("unused")
     private static Element[] makePathElements(List<File> files, File optimizedDirectory,
-        List<IOException> suppressedExceptions) {
+            List<IOException> suppressedExceptions) {
         return makeDexElements(files, optimizedDirectory, suppressedExceptions, null);
     }
 
@@ -636,7 +636,7 @@ public final class DexPathList {
             libFiles.add(new File(path));
         }
         ArrayList<NativeLibraryElement> newPaths =
-            new ArrayList<>(nativeLibraryPathElements.length + libPaths.size());
+                new ArrayList<>(nativeLibraryPathElements.length + libPaths.size());
         newPaths.addAll(Arrays.asList(nativeLibraryPathElements));
         for (NativeLibraryElement element : makePathElements(libFiles)) {
             if (!newPaths.contains(element)) {
@@ -702,10 +702,10 @@ public final class DexPathList {
         public Element(File dir, boolean isDirectory, File zip, DexFile dexFile) {
             this(dir != null ? null : dexFile, dir != null ? dir : zip);
             System.err.println("Warning: Using deprecated Element constructor. Do not use internal"
-                + " APIs, this constructor will be removed in the future.");
+                    + " APIs, this constructor will be removed in the future.");
             if (dir != null && (zip != null || dexFile != null)) {
                 throw new IllegalArgumentException("Using dir and zip|dexFile no longer"
-                    + " supported.");
+                        + " supported.");
             }
             if (isDirectory && (zip != null || dexFile != null)) {
                 throw new IllegalArgumentException("Unsupported argument combination.");
@@ -768,9 +768,9 @@ public final class DexPathList {
         }
 
         public Class<?> findClass(String name, ClassLoader definingContext,
-            List<Throwable> suppressed) {
+                List<Throwable> suppressed) {
             return dexFile != null ? dexFile.loadClassBinaryName(name, definingContext, suppressed)
-                : null;
+                    : null;
         }
 
         public URL findResource(String name) {
@@ -840,7 +840,7 @@ public final class DexPathList {
                 return "directory \"" + path + "\"";
             } else {
                 return "zip file \"" + path + "\"" +
-                    (!zipDir.isEmpty() ? ", dir \"" + zipDir + "\"" : "");
+                        (!zipDir.isEmpty() ? ", dir \"" + zipDir + "\"" : "");
             }
         }
 
@@ -902,7 +902,7 @@ public final class DexPathList {
             if (!(o instanceof NativeLibraryElement)) return false;
             NativeLibraryElement that = (NativeLibraryElement) o;
             return Objects.equals(path, that.path) &&
-                Objects.equals(zipDir, that.zipDir);
+                    Objects.equals(zipDir, that.zipDir);
         }
 
         @Override
