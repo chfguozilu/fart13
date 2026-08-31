@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2026
+ *
+ * Android 13 runtime snapshot support.
+ */
+
 #ifndef ART_RUNTIME_RUNTIME_SNAPSHOT_RUNTIME_SNAPSHOT_H_
 #define ART_RUNTIME_RUNTIME_SNAPSHOT_RUNTIME_SNAPSHOT_H_
 
