@@ -101,7 +101,7 @@ public class BaseDexClassLoader extends ClassLoader {
      * @param parent the parent class loader
      */
     public BaseDexClassLoader(String dexPath, File optimizedDirectory,
-        String librarySearchPath, ClassLoader parent) {
+            String librarySearchPath, ClassLoader parent) {
         this(dexPath, librarySearchPath, parent, null, null, false);
     }
 
@@ -110,7 +110,7 @@ public class BaseDexClassLoader extends ClassLoader {
      */
     @UnsupportedAppUsage
     public BaseDexClassLoader(String dexPath, File optimizedDirectory,
-        String librarySearchPath, ClassLoader parent, boolean isTrusted) {
+            String librarySearchPath, ClassLoader parent, boolean isTrusted) {
         this(dexPath, librarySearchPath, parent, null, null, isTrusted);
     }
 
@@ -118,7 +118,7 @@ public class BaseDexClassLoader extends ClassLoader {
      * @hide
      */
     public BaseDexClassLoader(String dexPath,
-        String librarySearchPath, ClassLoader parent, ClassLoader[] libraries) {
+            String librarySearchPath, ClassLoader parent, ClassLoader[] libraries) {
         this(dexPath, librarySearchPath, parent, libraries, null, false);
     }
 
@@ -126,7 +126,7 @@ public class BaseDexClassLoader extends ClassLoader {
      * @hide
      */
     public BaseDexClassLoader(String dexPath, String librarySearchPath,
-        ClassLoader parent, ClassLoader[] libraries, ClassLoader[] librariesAfter) {
+            ClassLoader parent, ClassLoader[] libraries, ClassLoader[] librariesAfter) {
         this(dexPath, librarySearchPath, parent, libraries, librariesAfter, false);
     }
 
@@ -148,20 +148,20 @@ public class BaseDexClassLoader extends ClassLoader {
      * @hide
      */
     public BaseDexClassLoader(String dexPath,
-        String librarySearchPath, ClassLoader parent, ClassLoader[] sharedLibraryLoaders,
-        ClassLoader[] sharedLibraryLoadersAfter,
-        boolean isTrusted) {
+            String librarySearchPath, ClassLoader parent, ClassLoader[] sharedLibraryLoaders,
+            ClassLoader[] sharedLibraryLoadersAfter,
+            boolean isTrusted) {
         super(parent);
         // Setup shared libraries before creating the path list. ART relies on the class loader
         // hierarchy being finalized before loading dex files.
         this.sharedLibraryLoaders = sharedLibraryLoaders == null
-            ? null
-            : Arrays.copyOf(sharedLibraryLoaders, sharedLibraryLoaders.length);
+                ? null
+                : Arrays.copyOf(sharedLibraryLoaders, sharedLibraryLoaders.length);
         this.pathList = new DexPathList(this, dexPath, librarySearchPath, null, isTrusted);
 
         this.sharedLibraryLoadersAfter = sharedLibraryLoadersAfter == null
-            ? null
-            : Arrays.copyOf(sharedLibraryLoadersAfter, sharedLibraryLoadersAfter.length);
+                ? null
+                : Arrays.copyOf(sharedLibraryLoadersAfter, sharedLibraryLoadersAfter.length);
         // Run background verification after having set 'pathList'.
         this.pathList.maybeRunBackgroundVerification(this);
 
@@ -184,10 +184,10 @@ public class BaseDexClassLoader extends ClassLoader {
             return;
         }
         Map<String, String> dexFileMapping =
-            new HashMap<>(classPathAndClassLoaderContexts.length / 2);
+                new HashMap<>(classPathAndClassLoaderContexts.length / 2);
         for (int i = 0; i < classPathAndClassLoaderContexts.length; i += 2) {
             dexFileMapping.put(classPathAndClassLoaderContexts[i],
-                classPathAndClassLoaderContexts[i + 1]);
+                    classPathAndClassLoaderContexts[i + 1]);
         }
         reporter.report(Collections.unmodifiableMap(dexFileMapping));
     }
@@ -257,7 +257,7 @@ public class BaseDexClassLoader extends ClassLoader {
         }
         if (c == null) {
             ClassNotFoundException cnfe = new ClassNotFoundException(
-                "Didn't find class \"" + name + "\" on path: " + pathList);
+                    "Didn't find class \"" + name + "\" on path: " + pathList);
             for (Throwable t : suppressedExceptions) {
                 cnfe.addSuppressed(t);
             }
@@ -333,14 +333,14 @@ public class BaseDexClassLoader extends ClassLoader {
         }
 
         int sharedLibraryLoadersCount =
-            (sharedLibraryLoaders != null) ? sharedLibraryLoaders.length : 0;
+                (sharedLibraryLoaders != null) ? sharedLibraryLoaders.length : 0;
         int sharedLibraryLoadersAfterCount =
-            (sharedLibraryLoadersAfter != null) ? sharedLibraryLoadersAfter.length : 0;
+                (sharedLibraryLoadersAfter != null) ? sharedLibraryLoadersAfter.length : 0;
 
         Enumeration<URL>[] tmp =
-            (Enumeration<URL>[]) new Enumeration<?>[sharedLibraryLoadersCount +
-                sharedLibraryLoadersAfterCount
-                + 1];
+                (Enumeration<URL>[]) new Enumeration<?>[sharedLibraryLoadersCount +
+                        sharedLibraryLoadersAfterCount
+                        + 1];
         // First add sharedLibrary resources.
         // This will add duplicate resources if a shared library is loaded twice, but that's ok
         // as we don't guarantee uniqueness.
@@ -404,7 +404,7 @@ public class BaseDexClassLoader extends ClassLoader {
 
             if (pack == null) {
                 pack = definePackage(name, "Unknown", "0.0", "Unknown",
-                    "Unknown", "0.0", "Unknown", null);
+                        "Unknown", "0.0", "Unknown", null);
             }
 
             return pack;
