@@ -82,7 +82,7 @@ public final class DexFile {
      *            the temporary dex path list elements from DexPathList.makeElements
      */
     DexFile(File file, ClassLoader loader, DexPathList.Element[] elements)
-        throws IOException {
+            throws IOException {
         this(file.getPath(), loader, elements);
     }
 
@@ -109,7 +109,7 @@ public final class DexFile {
      *            the temporary dex path list elements from DexPathList.makeElements
      */
     DexFile(String fileName, ClassLoader loader, DexPathList.Element[] elements)
-        throws IOException {
+            throws IOException {
         mCookie = openDexFile(fileName, null, 0, loader, elements);
         mInternalCookie = mCookie;
         mFileName = fileName;
@@ -117,7 +117,7 @@ public final class DexFile {
     }
 
     DexFile(ByteBuffer[] bufs, ClassLoader loader, DexPathList.Element[] elements)
-        throws IOException {
+            throws IOException {
         mCookie = openInMemoryDexFiles(bufs, loader, elements);
         mInternalCookie = mCookie;
         mFileName = null;
@@ -139,14 +139,14 @@ public final class DexFile {
      *  The temporary dex path list elements from DexPathList.makeElements
      */
     private DexFile(String sourceName, String outputName, int flags, ClassLoader loader,
-        DexPathList.Element[] elements) throws IOException {
+            DexPathList.Element[] elements) throws IOException {
         if (outputName != null) {
             try {
                 String parent = new File(outputName).getParent();
                 if (Libcore.os.getuid() != Libcore.os.stat(parent).st_uid) {
                     throw new IllegalArgumentException("Optimized data directory " + parent
-                        + " is not owned by the current user. Shared storage cannot protect"
-                        + " your application from code injection attacks.");
+                            + " is not owned by the current user. Shared storage cannot protect"
+                            + " your application from code injection attacks.");
                 }
             } catch (ErrnoException ignored) {
                 // assume we'll fail with a more contextual error later
@@ -171,7 +171,7 @@ public final class DexFile {
      */
     @Deprecated
     static public DexFile loadDex(String sourcePathName, String outputPathName,
-        int flags) throws IOException {
+            int flags) throws IOException {
 
         /*
          * TODO: we may want to cache previously-opened DexFile objects.
@@ -204,7 +204,7 @@ public final class DexFile {
      */
     @UnsupportedAppUsage
     static DexFile loadDex(String sourcePathName, String outputPathName,
-        int flags, ClassLoader loader, DexPathList.Element[] elements) throws IOException {
+            int flags, ClassLoader loader, DexPathList.Element[] elements) throws IOException {
 
         /*
          * TODO: we may want to cache previously-opened DexFile objects.
@@ -292,7 +292,7 @@ public final class DexFile {
     }
 
     private static Class defineClass(String name, ClassLoader loader, Object cookie,
-        DexFile dexFile, List<Throwable> suppressed) {
+            DexFile dexFile, List<Throwable> suppressed) {
         Class result = null;
         try {
             result = defineClassNative(name, loader, cookie, dexFile);
@@ -385,19 +385,19 @@ public final class DexFile {
      */
     @UnsupportedAppUsage
     private static Object openDexFile(String sourceName, String outputName, int flags,
-        ClassLoader loader, DexPathList.Element[] elements) throws IOException {
+            ClassLoader loader, DexPathList.Element[] elements) throws IOException {
         // Use absolute paths to enable the use of relative paths when testing on host.
         return openDexFileNative(new File(sourceName).getAbsolutePath(),
-            (outputName == null)
-                ? null
-                : new File(outputName).getAbsolutePath(),
-            flags,
-            loader,
-            elements);
+                (outputName == null)
+                        ? null
+                        : new File(outputName).getAbsolutePath(),
+                flags,
+                loader,
+                elements);
     }
 
     private static Object openInMemoryDexFiles(ByteBuffer[] bufs, ClassLoader loader,
-        DexPathList.Element[] elements) throws IOException {
+            DexPathList.Element[] elements) throws IOException {
         // Preprocess the ByteBuffers for openInMemoryDexFilesNative. We extract
         // the backing array (non-direct buffers only) and start/end positions
         // so that the native method does not have to call Java methods anymore.
@@ -413,7 +413,7 @@ public final class DexFile {
     }
 
     private static native Object openInMemoryDexFilesNative(ByteBuffer[] bufs, byte[][] arrays,
-        int[] starts, int[] ends, ClassLoader loader, DexPathList.Element[] elements);
+            int[] starts, int[] ends, ClassLoader loader, DexPathList.Element[] elements);
 
     /*
      * Initiates background verification of this DexFile. This is a sepearate down-call
@@ -447,8 +447,8 @@ public final class DexFile {
      */
     private static native boolean closeDexFile(Object cookie);
     private static native Class defineClassNative(String name, ClassLoader loader, Object cookie,
-        DexFile dexFile)
-        throws ClassNotFoundException, NoClassDefFoundError;
+            DexFile dexFile)
+            throws ClassNotFoundException, NoClassDefFoundError;
     @UnsupportedAppUsage
     private static native String[] getClassNameList(Object cookie);
     private static native boolean isBackedByOatFile(Object cookie);
@@ -459,7 +459,7 @@ public final class DexFile {
      */
     @UnsupportedAppUsage
     private static native Object openDexFileNative(String sourceName, String outputName, int flags,
-        ClassLoader loader, DexPathList.Element[] elements);
+            ClassLoader loader, DexPathList.Element[] elements);
 
     /**
      * Returns true if the VM believes that the apk/jar file is out of date
@@ -474,7 +474,7 @@ public final class DexFile {
      * @throws java.lang.NullPointerException if fileName is null.
      */
     public static native boolean isDexOptNeeded(String fileName)
-        throws FileNotFoundException, IOException;
+            throws FileNotFoundException, IOException;
 
     /**
      * No dexopt should (or can) be done to update the apk/jar.
@@ -525,10 +525,10 @@ public final class DexFile {
      * @hide
      */
     public static int getDexOptNeeded(String fileName,
-        String instructionSet, String compilerFilter, boolean newProfile, boolean downgrade)
-        throws FileNotFoundException, IOException {
+            String instructionSet, String compilerFilter, boolean newProfile, boolean downgrade)
+            throws FileNotFoundException, IOException {
         return getDexOptNeeded(
-            fileName, instructionSet, compilerFilter, null, newProfile, downgrade);
+                fileName, instructionSet, compilerFilter, null, newProfile, downgrade);
     }
 
     /**
@@ -562,9 +562,9 @@ public final class DexFile {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public static native int getDexOptNeeded(@NonNull String fileName,
-        @NonNull String instructionSet, @NonNull String compilerFilter, @Nullable String classLoaderContext,
-        boolean newProfile, boolean downgrade)
-        throws FileNotFoundException, IOException;
+            @NonNull String instructionSet, @NonNull String compilerFilter, @Nullable String classLoaderContext,
+            boolean newProfile, boolean downgrade)
+            throws FileNotFoundException, IOException;
 
     /**
      * Returns the status of the dex file {@code fileName}. The returned string is
@@ -575,7 +575,7 @@ public final class DexFile {
      * @hide
      */
     public static native String getDexFileStatus(String fileName, String instructionSet)
-        throws FileNotFoundException;
+            throws FileNotFoundException;
 
     /**
      * Encapsulates information about the optimizations performed on a dex file.
@@ -635,7 +635,7 @@ public final class DexFile {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public static @NonNull OptimizationInfo getDexFileOptimizationInfo(
-        @NonNull String fileName, @NonNull String instructionSet) throws FileNotFoundException {
+            @NonNull String fileName, @NonNull String instructionSet) throws FileNotFoundException {
         String[] status = getDexFileOptimizationStatus(fileName, instructionSet);
         return new OptimizationInfo(status[0], status[1]);
     }
@@ -653,7 +653,7 @@ public final class DexFile {
      * @hide
      */
     private static native String[] getDexFileOptimizationStatus(
-        String fileName, String instructionSet) throws FileNotFoundException;
+            String fileName, String instructionSet) throws FileNotFoundException;
 
     /**
      * Returns the paths of the optimized files generated for {@code fileName}.
@@ -668,7 +668,7 @@ public final class DexFile {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public static native @Nullable String[] getDexFileOutputPaths(@NonNull String fileName, @NonNull String instructionSet)
-        throws FileNotFoundException;
+            throws FileNotFoundException;
 
     /**
      * Returns whether the given filter is a valid filter.
