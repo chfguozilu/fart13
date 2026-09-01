@@ -30,3 +30,12 @@ adb shell setprop debug.runtime.profile.delay_ms 10000 # 这个可以不写，�
 一般都是使用这三个选项，可以python runtime_profile_records.py --help看看选项是干什么的
 
 执行修复脚本之后就会得到.dex文件，然后就可以用jadx打开了（有些壳会抹去文件头，这里的python脚本在修复时也会修复文件头）
+
+
+需要提醒的就是，现在很多企业壳它会检测系统的特征，直接编译lineageos一般使用的就是test-keys，这个特征很明显，很有可能会被app认为是不安全环境，编译user版本时，需要注意使用release-keys以及把一些系统相关的特征修改为一个正常的release特征
+
+手机的系统路径下/system/build.prop文件主要展示一些系统初始化的一些参数属性，非常明显的特征就是xxx.tags=test-keys，把它换成release-keys的话，问题基本上就解决了一大半
+
+- LineageOS签名教程：https://wiki.lineageos.org/signing_builds
+- 
+- AOSP签名教程：https://source.android.com/docs/core/ota/sign_builds?hl=zh-cn
