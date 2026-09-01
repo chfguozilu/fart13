@@ -43,9 +43,11 @@ adb shell setprop debug.runtime.profile.delay_ms 10000 # 这个可以不写，�
 
 下面给一个最新版app企业壳的例子：
 <img width="941" height="114" alt="屏幕截图 2026-09-01 222841" src="https://github.com/user-attachments/assets/47d20c95-4209-4f75-88f6-38b75161c0fd" />
-然后打开app，等个1分钟2分钟的就可以了
+  然后打开app，等个1分钟2分钟的就可以了
 <img width="1089" height="325" alt="屏幕截图 2026-09-01 223037" src="https://github.com/user-attachments/assets/68de49e5-cbf5-4e86-82c5-08b0cf7eb9f7" />
-直接把它拉到本地，然后执行tools中的python脚本
+  直接把它拉到本地，然后执行tools中的python脚本
 <img width="962" height="100" alt="屏幕截图 2026-09-01 223420" src="https://github.com/user-attachments/assets/92772ae0-887e-452e-892b-ece78217a036" />
-然后用jadx打开这些dex就可以了
+  然后用jadx打开这些dex就可以了
 <img width="1139" height="753" alt="屏幕截图 2026-09-01 223635" src="https://github.com/user-attachments/assets/e50f457f-971e-4618-addf-ecada857bfb9" />
+  可以看到效果还是比较好的，当然还有一些特殊的方法我没有去处理，以后有时机会持续更新的
+  
