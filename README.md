@@ -1,4 +1,4 @@
-<img width="940" height="100" alt="图片" src="https://github.com/user-attachments/assets/0270ac2a-cf80-498e-87d4-5f6e3b914f49" /># FART 13
+# FART 13
 
 基于安卓13平台的FART，原版的FART版本太旧，并且有些脱壳点考虑欠缺，这里延续了原版FART先获取残缺dex和方法体然后离线修复的思想，并且脱壳点的考虑比原版更为周到，也能脱下更深的二代壳
 
