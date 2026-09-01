@@ -38,3 +38,5 @@ adb shell setprop debug.runtime.profile.delay_ms 10000 # 这个可以不写，�
 
 - LineageOS签名教程：https://wiki.lineageos.org/signing_builds
 - AOSP签名教程：https://source.android.com/docs/core/ota/sign_builds
+
+就按这个教程，实测了几家企业壳，如果编译的时候是用的test-keys，那么刷入手机之后，这些app还是会报风险异常，按照LineageOS的教程，这几家的都不会有提示了
