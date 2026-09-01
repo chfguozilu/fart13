@@ -31,6 +31,7 @@ adb shell setprop debug.runtime.profile.delay_ms 10000 # 这个可以不写，�
 
 执行修复脚本之后就会得到.dex文件，然后就可以用jadx打开了（有些壳会抹去文件头，这里的python脚本在修复时也会修复文件头）
 
+这个沙箱脱壳机经过测试，有些强检测还是会检测到的，然后对于dex抽取型壳，是可以还原的，如果使用了更强的加固，那么无法还原
 
 需要提醒的就是，现在很多企业壳它会检测系统的特征，直接编译lineageos一般使用的就是test-keys，这个特征很明显，很有可能会被app认为是不安全环境，编译user版本时，需要注意使用release-keys以及把一些系统相关的特征修改为一个正常的release特征
 
@@ -39,9 +40,9 @@ adb shell setprop debug.runtime.profile.delay_ms 10000 # 这个可以不写，�
 - LineageOS签名教程：https://wiki.lineageos.org/signing_builds
 - AOSP签名教程：https://source.android.com/docs/core/ota/sign_builds
 
-就按这个教程，实测了几家企业壳，如果编译的时候是用的test-keys，那么刷入手机之后，这些app还是会报风险异常，按照LineageOS的教程，这几家的都不会有提示了
+就按这个教程，实测了几家使用了企业壳的app，如果编译的时候是用的test-keys，那么刷入手机之后，这些app还是会报风险异常，按照LineageOS的教程，这几家的都不会有提示了
 
-下面给一个最新版app企业壳的例子：
+下面给一个最新版企业壳app的例子：
 
 <img width="941" height="114" alt="屏幕截图 2026-09-01 222841" src="https://github.com/user-attachments/assets/47d20c95-4209-4f75-88f6-38b75161c0fd" />
 
